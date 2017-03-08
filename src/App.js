@@ -41,9 +41,7 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h2>Welcome to React</h2>
         </div>
-        <p className="App-intro">
-          Welcome to this awesome app!
-        </p>
+        <br/>
         <p className="App-intro">
           <Button onClick={this.logout}>Log Out</Button>
         </p>

@@ -6,7 +6,7 @@ import Alert from 'react-bootstrap/lib/Alert'
 const actions = require('../../actions/Actions')
 const userStore = require('../../stores/UserStore')
 
-class SignIn extends React.Component {
+class Register extends React.Component {
   constructor(){
     super()
     this.state = {
@@ -19,7 +19,7 @@ class SignIn extends React.Component {
     event.preventDefault()
     $.ajax({
       method: "POST",
-      url: "http://localhost:3001/users/sign_in.json",
+      url: "http://localhost:3001/users.json",
       data: {
         user: {          
           email: userCreds.email,
@@ -32,7 +32,9 @@ class SignIn extends React.Component {
       browserHistory.push('/')
     })
     .catch(data => {
-      this.setState({alert: data.responseJSON.error})
+      for(var key in data.responseJSON.errors){
+        return this.setState({alert: key + ' ' + data.responseJSON.errors[key]})
+      }
     })
   }
 
@@ -59,14 +61,14 @@ class SignIn extends React.Component {
 
     return (
       <div className="col-lg-8 col-lg-offset-2">
-        <h1 className="centered-text">Log In</h1>
+        <h1 className="centered-text">Register</h1>
         {this.state.alert ? alert : null}
         <SignInForm handleSignInClick={this.handleSignInClick} />
         <br/>
-        <p>New to this app? <Link to="/register">Register Here</Link></p>
+        <p>Already have an account? <Link to="/sign_in">Login Here</Link></p>
       </div>
     );
   }
 }
 
-module.exports = SignIn
+module.exports = Register
